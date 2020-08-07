@@ -34,7 +34,7 @@ The DAG workflow is as follows:
 Postgres Data: 
 ![alt text](https://github.com/rrctx/spark_etl_pipeline/blob/master/README_images/heroesdmexample.png?raw=true)
 
-CSV Data:
+OpenDota API CSV File Data:
 ![alt text](https://github.com/rrctx/spark_etl_pipeline/blob/master/README_images/draftexample.png?raw=true)
 
 Redshift Dota Draft Report:
