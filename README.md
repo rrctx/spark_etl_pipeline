@@ -18,16 +18,16 @@ Data for both the Postgres database and the CSV file were directly sourced from 
 ![alt text](https://github.com/rrctx/spark_etl_pipeline/blob/master/README_images/ETLflowoperators.png?raw=true)
 ![alt text](https://github.com/rrctx/spark_etl_pipeline/blob/master/README_images/ETLflow.png?raw=true)
 
-The DAG workflow is as follows:
-1a. Postgres data for a certain query date is loaded into the temporary Docker volume location.
-1b. In parallel, data from the CSV file is loaded into an S3 loading area.
-1c. In parallel, the EMR steps (JSON) are loaded into S3.
-2. The Postgres data is uploaded to the S3 staging area.
-3a. The temporary file is deleted from the Docker volume location.
-3b. EMR steps are added to the cluster.
-4a. A new partition for the DAG date is added into the Redshift Spectrum Postgres data table (the table has been set up to be partitioned on insert_date).
-4b. EMR step sensor continues to check for completion; EMR uses s3-dist-cp to execute the s3 --> hdfs conversions and spark-submit for the PySpark cleaning script. The data is pivoted on pick order and stored as parquet in the S3 staging area.
-5. Once the two paths have completed, a Redshift query is executed and returns a report.
+The DAG workflow is as follows:  
+1a. Postgres data for a certain query date is loaded into the temporary Docker volume location.  
+1b. In parallel, data from the CSV file is loaded into an S3 loading area.  
+1c. In parallel, the EMR steps (JSON) are loaded into S3.  
+2. The Postgres data is uploaded to the S3 staging area.  
+3a. The temporary file is deleted from the Docker volume location.  
+3b. EMR steps are added to the cluster.  
+4a. A new partition for the DAG date is added into the Redshift Spectrum Postgres data table (the table has been set up to be partitioned on insert_date).  
+4b. EMR step sensor continues to check for completion; EMR uses s3-dist-cp to execute the s3 --> hdfs conversions and spark-submit for the PySpark cleaning script. The data is pivoted on pick order and stored as parquet in the S3 staging area.  
+5. Once the two upstream tasks have completed, a Redshift query is executed and returns a report.  
 
 ## Data Examples
 
