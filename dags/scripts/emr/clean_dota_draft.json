@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "draft data in S3 to EMR HDFS",
+    "ActionOnFailure": "CANCEL_AND_WAIT",
+    "HadoopJarStep": {
+      "Jar": "command-runner.jar",
+      "Args": [
+        "s3-dist-cp",
+        "--src=s3://{{ params.BUCKET_NAME }}/{{ params.dota_draft_load }}",
+        "--dest=/draft"
+      ]
+    }
+  },
+  {
+    "Name": "spark cleaning script",
+    "ActionOnFailure": "CANCEL_AND_WAIT",
+    "HadoopJarStep": {
+      "Jar": "command-runner.jar",
+      "Args": [
+        "spark-submit",
+        "s3://{{ params.BUCKET_NAME }}/scripts/draft_transforms.py"
+      ]
+    }
+  },
+  {
+    "Name": "draft data from EMR to staging",
+    "ActionOnFailure": "CANCEL_AND_WAIT",
+    "HadoopJarStep": {
+      "Jar": "command-runner.jar",
+      "Args": [
+        "s3-dist-cp",
+        "--src=/output",
+        "--dest=s3://{{ params.BUCKET_NAME }}/{{ params.dota_draft_stage }}"
+      ]
+    }
+  }
+]
