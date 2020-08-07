@@ -32,9 +32,11 @@ The DAG workflow is as follows:
 ## Data Examples
 
 Postgres Data: 
+
 ![alt text](https://github.com/rrctx/spark_etl_pipeline/blob/master/README_images/heroesdmexample.png?raw=true)
 
 CSV Data:
+
 ![alt text](https://github.com/rrctx/spark_etl_pipeline/blob/master/README_images/draftexample.png?raw=true)
 
 Redshift Dota Draft Report:
